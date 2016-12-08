@@ -63,7 +63,6 @@ def get_dataset_file(dataset, default_dataset, origin):
         # Check if dataset is in the data directory.
         new_path = os.path.join(
             os.path.split(__file__)[0],
-            "..",
             "data",
             dataset
         )
@@ -73,6 +72,10 @@ def get_dataset_file(dataset, default_dataset, origin):
     if (not os.path.isfile(dataset)) and data_file == default_dataset:
         from six.moves import urllib
         print('Downloading data from %s' % origin)
+        datadir = os.path.join(os.path.split(__file__)[0], "data")
+        if not os.path.exists(datadir):
+            os.mkdir(datadir)
+        
         urllib.request.urlretrieve(origin, dataset)
 
 
